@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import axios from 'axios'
 import setAxiosHeaders from './AxiosHeaders'
-class TodoForm extends React.Component {
+class NameForm extends React.Component {
     constructor(props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -14,15 +14,15 @@ class TodoForm extends React.Component {
         e.preventDefault()
         setAxiosHeaders()
         axios
-            .post('/api/v1/todo_items', {
+            .post('/api/v1/names', {
                 todo_item: {
                     title: this.titleRef.current.value,
                     complete: false,
                 },
             })
             .then(response => {
-                const todoItem = response.data
-                this.props.createTodoItem(todoItem)
+                const name = response.data
+                this.props.createTodoItem(name)
                 this.props.clearErrors()
             })
             .catch(error => {
@@ -43,12 +43,12 @@ class TodoForm extends React.Component {
                             required
                             className="form-control"
                             id="title"
-                            placeholder="Write your todo item here..."
+                            placeholder="Write your name here..."
                         />
                     </div>
                     <div className="form-group col-md-4">
                         <button className="btn btn-outline-success btn-block">
-                            Add To Do Item
+                            Add Name
                         </button>
                     </div>
                 </div>
@@ -57,9 +57,9 @@ class TodoForm extends React.Component {
     }
 }
 
-export default TodoForm
+export default NameForm
 
-TodoForm.propTypes = {
+NameForm.propTypes = {
     createTodoItem: PropTypes.func.isRequired,
     handleErrors: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
