@@ -9,8 +9,8 @@ class Names extends React.Component {
     handleClick() {
         this.props.toggleCompletedNames()
     }
+
     render() {
-        debugger
         return (
             <>
                 <hr />
@@ -19,9 +19,6 @@ class Names extends React.Component {
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col" className="text-right">
-                                    Actions
-                                </th>
                             </tr>
                         </thead>
                         <tbody>{this.props.children}</tbody>

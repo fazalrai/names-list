@@ -26,7 +26,6 @@ class NameForm extends React.Component {
             })
         e.target.reset()
     }
-
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="my-3">

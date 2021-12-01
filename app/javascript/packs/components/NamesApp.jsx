@@ -26,12 +26,21 @@ class NamesApp extends React.Component {
         this.handleSearchText = this.handleSearchText.bind(this)
     }
     componentDidMount() {
-        this.getNames()
+
+        const url = window.location.href  
+        const result_array = url.split("/")
+        const uuid= result_array[result_array.length-1]
+        this.getNames(uuid)
+
     }
-    getNames() {
-        let keywords = this.state.searchText ? `&keywords=${this.state.searchText}` : ''
+
+
+    getNames(id) {
+        let q = this.state.searchText ? `&q=${this.state.searchText}` : ''
+        let uuid = id ? `&uuid=${id}` : ''
+
         axios
-            .get(`/api/v1/names?${keywords}`)
+            .get(`/api/v1/names?${q}${uuid}`)
             .then(response => {
                 this.clearErrors()
                 this.setState({ isLoading: true })
@@ -40,11 +49,11 @@ class NamesApp extends React.Component {
                 this.setState({ isLoading: false })
             })
             .catch(error => {
-                this.setState({ isLoading: true })
-                this.setState({
+                this.setState({ isLoading: false })
+                this.setState({     
                     errorMessage: {
                         message:
-                            'There was an error loading your todo items...',
+                            `List with id ${id} not found`,
                     },
                 })
             })
@@ -68,8 +77,8 @@ class NamesApp extends React.Component {
     }
 
     handleSearchText(event){
-        let keywords = event.target.value
-        this.setState({searchText: keywords})
+        let query = event.target.value
+        this.setState({searchText: query})
 
         clearTimeout(this.inputTimer);
         this.inputTimer = setTimeout(() => {
@@ -93,10 +102,9 @@ class NamesApp extends React.Component {
                         />
                     </div>
                 </div>
-                {this.state.errorMessage && (
+                {this.state.errorMessage ? (
                     <ErrorMessage errorMessage={this.state.errorMessage} />
-                )}
-                {!this.state.isLoading && (
+                ): (
                     <>
                         <NameForm
                             createName={this.createName}
@@ -116,9 +124,6 @@ class NamesApp extends React.Component {
                                     key={name.id}
                                     name={name}
                                     getNames={this.getNames}
-                                    hideCompletedNames={
-                                        this.state.hideCompletedNames
-                                    }
                                     handleErrors={this.handleErrors}
                                     clearErrors={this.clearErrors}
                                 />

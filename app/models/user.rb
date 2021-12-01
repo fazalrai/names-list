@@ -4,16 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one :list
+  has_one :recent_list
   has_many :names, dependent: :destroy
 
-  after_create :create_default_list
+  after_create :create_list, :populate_recent_list
 
-  has_one :list
-
-  has_one :recent_list
-
-  def create_default_list
-    list = List.create(user_id: self.id)
-    RecentList.create(user_id: self.id, list_id: list.id) 
+  def populate_recent_list
+    RecentList.create!(user_id: id, list_id: list.id)
   end
 end
