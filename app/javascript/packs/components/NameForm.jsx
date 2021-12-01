@@ -13,16 +13,12 @@ class NameForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         setAxiosHeaders()
-        axios
-            .post('/api/v1/names', {
-                todo_item: {
-                    title: this.titleRef.current.value,
-                    complete: false,
-                },
+        axios.post('/api/v1/names', {               
+                    title: this.titleRef.current.value               
             })
             .then(response => {
                 const name = response.data
-                this.props.createTodoItem(name)
+                this.props.createName(name)
                 this.props.clearErrors()
             })
             .catch(error => {
@@ -60,7 +56,7 @@ class NameForm extends React.Component {
 export default NameForm
 
 NameForm.propTypes = {
-    createTodoItem: PropTypes.func.isRequired,
+    createName: PropTypes.func.isRequired,
     handleErrors: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
 }

@@ -27,9 +27,8 @@ class Name extends React.Component {
         setAxiosHeaders()
         axios
             .put(this.path, {
-                todo_item: {
+                name: {
                     title: this.inputRef.current.value,
-                    complete: this.completedRef.current.checked,
                 },
             })
             .then(() => {

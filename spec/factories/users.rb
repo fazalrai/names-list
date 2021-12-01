@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user-#{n}@example.com" }
-    password { "password" }
+    password { 'password' }
 
     factory :user_with_names do
       transient do
@@ -22,6 +22,5 @@ FactoryBot.define do
         create_list(:completed_todo_item, evaluator.names_count, user: user)
       end
     end
-
   end
 end

@@ -19,7 +19,7 @@ class NamesApp extends React.Component {
             errorMessage: null,
         }
         this.getNames = this.getNames.bind(this)
-        this.createTodoItem = this.createTodoItem.bind(this)
+        this.createName = this.createName.bind(this)
         this.toggleCompletedNames = this.toggleCompletedNames.bind(this)
         this.handleErrors = this.handleErrors.bind(this)
         this.clearErrors = this.clearErrors.bind(this)
@@ -49,7 +49,7 @@ class NamesApp extends React.Component {
                 })
             })
     }
-    createTodoItem(name) {
+    createName(name) {
         const names = [name, ...this.state.names]
         this.setState({ names })
     }
@@ -99,7 +99,7 @@ class NamesApp extends React.Component {
                 {!this.state.isLoading && (
                     <>
                         <NameForm
-                            createTodoItem={this.createTodoItem}
+                            createName={this.createName}
                             handleErrors={this.handleErrors}
                             clearErrors={this.clearErrors}
                         />
